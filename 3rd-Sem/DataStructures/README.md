@@ -1,1 +1,1 @@
-## 1BM18SCS079 - Data Structures - S
+## 1BM18CS079 - Data Structures - S
