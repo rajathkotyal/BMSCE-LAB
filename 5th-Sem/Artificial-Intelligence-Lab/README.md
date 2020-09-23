@@ -1,1 +1,3 @@
-# AI LAB Sem 5
+<div align = 'center'>
+  <h1>Artificial Intelligence 🤖</h1>
+  </div>
