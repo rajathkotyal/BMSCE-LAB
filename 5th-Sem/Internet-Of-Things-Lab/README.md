@@ -1,4 +1,5 @@
-# IOT LAB Sem 5
+<div align = 'center'>
+  <h1>Internet Of Things 💡</h1>
+  </div>
+  
 
-## Name - Rajath Kotyal
-## USN - 1BM18CS079
