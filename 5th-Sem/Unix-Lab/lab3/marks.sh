@@ -7,15 +7,18 @@ sum1=`expr $m1 + $m2 + $m3`
 echo "\nTotal Score out of 300 : " $sum1
 per=`expr $sum1 / 3`
 echo "Total Percentage: $per% "
-if [ $per -ge 75 ]
+if [ $per -ge 90 ]
 then
-echo "DISTINCTION”
-elif [ $per -ge 60 ]
+echo "S Grade"
+elif [ $per -ge 75 ]
 then
-echo “FIRST CLASS"
-elif [ $per -ge  40 ]
+echo "A Grade"
+elif [ $per -ge  60 ]
 then
-echo "SECOND CLASS"
+echo "B Grade"
+elif [ $per -le  40 ]
+then
+echo "Fail"
 else
-echo "FAIL"
+echo "C Grade"
 fi
