@@ -1,15 +1,15 @@
-echo "This progrm will generate prime number from range x to y"
-echo "Enter number x"
-read x
-echo "Enter number y"
-read y
-echo -e  "\nLets Generate Prime Number"
+echo "PRIME RANGE"
+read -p "Enter lower limit : " x
+if [[ $x -le 1 ]]
+then
+    echo "Enter Lower Limit greater than 1"
+    exit
+fi
+read -p "Enter upper limit : " y
+
+echo "\nPrime Numbers : "
 while [[ $x -le $y ]]
 do
-if [[ $x -le 2 ]]
-then
-    continue
-fi
 
 let LIMIT=$x-1
 
@@ -18,14 +18,13 @@ for ((a=2; a <= LIMIT ; a++))
                 let check=$x%$a
                 if [[ $check -eq 0 ]]
                 then
-                        #echo "$x is not prime"
                         break
                 fi
         done
 
 if [[ $a -gt $LIMIT ]]
 then
-        echo "$x is a prime number"
+        echo "$x"
 fi
 let x=$x+1
 done
