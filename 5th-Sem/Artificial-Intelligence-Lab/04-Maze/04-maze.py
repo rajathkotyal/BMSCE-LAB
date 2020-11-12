@@ -36,7 +36,6 @@ def cheesePosition(Maze):
                 return (i, j)
 
 
-# adjacentCells: cell*maze -> list<cell>
 # If c is a cell and M is a maze,
 # adjacentCells(C,M) is a list of the cells adjacent to C in M.
 def adjacentCells(destination, Maze):
@@ -60,15 +59,8 @@ def adjacentCells(destination, Maze):
     return cells
 
 
-# insert: path * list<path>  * cell -> list<path>
-# If p is a path, L is a list of paths sorted in nondecreasing order
-# by estimated total cost, and c is a cell, then insert(p,L,c) is the list
-# obtained from L by inserting p so that the list remains sorted.
-
 def insert(path, open, cheese):
 
-    # The estimated total cost of a path is its length plus the manhattanD.
-    # cost = length + manhattanD(?, cheesePosition)
     for i in range(0, len(open)):
         if len(path) + manhattanD(path[len(path) - 1], cheese) <= len(open) + manhattanD(open[0][i], cheese):
             return open[0:i] + [path] + open[i:len(open)]
