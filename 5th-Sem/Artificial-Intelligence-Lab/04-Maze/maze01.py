@@ -83,17 +83,17 @@ def manhattanD(c1, c2):
     return abs(i1 - i2) + abs(j1 - j2)
 
 
-R0 = ['o', 'o', 'x', 'o']
-R1 = ['o', 'm', 'x', 'o']
-R2 = ['x', 'o', 'o', 'o']
-R3 = ['c', 'o', 'x', 'x']
-
-
-#
-# R0 = ['o', 'o', 'o', 'o']
-# R1 = ['m', 'x', 'o', 'o']
+# R0 = ['o', 'o', 'x', 'o']
+# R1 = ['o', 'm', 'x', 'o']
 # R2 = ['x', 'o', 'o', 'o']
-# R3 = ['c', 'o', 'o', 'o']
+# R3 = ['c', 'o', 'x', 'x']
+
+
+
+R0 = ['o', 'o', 'o', 'o']
+R1 = ['m', 'x', 'o', 'o']
+R2 = ['x', 'o', 'o', 'o']
+R3 = ['c', 'x', 'o', 'o']
 M = [R0, R1, R2, R3]
 
 print("Path to the cheese: ", AStarSearch(M))
