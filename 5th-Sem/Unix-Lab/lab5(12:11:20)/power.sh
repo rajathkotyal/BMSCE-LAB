@@ -1,4 +1,4 @@
-# gi1BM18CS079 - Rajath MK
+# 1BM18CS079 - Rajath MK
 # Power of a number
 
 echo "POWER PROGRAM"
