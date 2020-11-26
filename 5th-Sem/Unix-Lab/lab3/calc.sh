@@ -13,15 +13,15 @@ echo "5) Modulus(Remainder)\n"
 read op
 
 case $op in
-   1)res=$(( $a + $b ))
+   1)echo "scale=3; $a + $b" | bc -l
    ;;
-   2)res=$(( $a - $b ))
+   2)echo "scale=3; $a - $b" | bc -l
    ;;
-   3)res=$(( $a * $b ))
+   3)echo "scale=3; $a \* $b" | bc -l
    ;;
-   4)res=$(( $a / $b ))
+   4)echo "scale=3; $a / $b" | bc -l
    ;;
-   5)res=$(( $a % $b ))
+   5)echo "scale=3; $a % $b" | bc -l
    ;;
+   *)echo "Choose a valid option"
 esac
-echo "Result : $res"
