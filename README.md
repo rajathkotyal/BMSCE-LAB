@@ -11,3 +11,7 @@
 2. [Computer Networks (CN)](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/5th-Sem/Computer-Networks-Lab)
 3. [Internet of Things (IOT)](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/5th-Sem/Internet-Of-Things-Lab)
 4. [Unix Shell Programming (USP)](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/5th-Sem/Unix-Lab)
+
+## Sem 6
+
+1. [Machine Learning (ML)](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/6th-Sem/Machine_Learning_Lab_079)
