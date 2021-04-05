@@ -1,0 +1,52 @@
+#Lab 3 - BDA (Mongo DB)
+#1BM18CS079 - Rajath MK
+#B2 Batch
+
+> db
+test
+> show databases
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use Student
+switched to db Student
+> db.createCollection(StudenInfo)
+uncaught exception: ReferenceError: StudenInfo is not defined :
+@(shell):1:1
+> db.createCollection("StudenInfo")
+{ "ok" : 1 }
+> db.insertMany([])
+uncaught exception: TypeError: db.insertMany is not a function :
+@(shell):1:1
+> db.insertMany(
+... [
+... {rollno:1,age:20,contact:1234543,emailid:"rajath.cs18@bmsce.ac.in"},
+... {rollno:1,age:21,contact:5678678,emailid:"abc@gmail.com"},
+... {rollno:2,age:22,contact:1345342,emailid:"def@gmail.com"}
+... ]
+... )
+uncaught exception: TypeError: db.insertMany is not a function :
+@(shell):1:1
+> db.StudentInfo.insertMany( [ {rollno:1,age:20,contact:1234543,emailid:"rajath.cs18@bmsce.ac.in"}, {rollno:3,age:21,contact:924320101,emailid:"abc@gmail.com"}, {rollno:2,age:22,contact:1345342,emailid:"def@gmail.com"} ] )
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("307fms75313d5d50a08a0f84"),
+                ObjectId("307fms75313d5d50a08a0f85"),
+                ObjectId("307fms75313d5d50a08a0f86")
+        ]
+}
+> db.StudentInfo.find({})
+{ "_id" : ObjectId("307fms75313d5d50a08a0f84"), "rollno" : 1, "age" : 20, "contact" : 1234543, "emailid" : "rajath.cs18@bmsce.ac.in" }
+{ "_id" : ObjectId("307fms75313d5d50a08a0f85"), "rollno" : 3, "age" : 21, "contact" : 5678678, "emailid" : "abc@gmail.com" }
+{ "_id" : ObjectId("307fms75313d5d50a08a0f86"), "rollno" : 2, "age" : 22, "contact" : 1345342, "emailid" : "def@gmail.com" }
+> db.StudentInfo.find({rollno:1})
+{ "_id" : ObjectId("307fms75313d5d50a08a0f84"), "rollno" : 1, "age" : 20, "contact" : 1234543, "emailid" : "rajath.cs18@bmsce.ac.in" }
+> db.StudentInfo.update(
+... {rollno:1},
+... {$set:{emailid:"changed@gmail.com"}}
+... )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.StudentInfo.find({rollno:1})
+{ "_id" : ObjectId("307fms75313d5d50a08a0f84"), "rollno" : 1, "age" : 20, "contact" : 1234543, "emailid" : "newmail@gmail.com" }
+>
