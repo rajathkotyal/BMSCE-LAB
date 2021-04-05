@@ -1,0 +1,231 @@
+Rahul Patil(1BM18CS077)
+Rajath MK(1BM18CS079)
+
+cqlsh> create keyspace assignment with replication = {'class':'SimpleStrategy','replication_factor':1};
+cqlsh> describe keyspaces;
+
+students    system_schema  system   system_distributed
+assignment  system_auth    library  system_traces
+
+cqlsh> use assignment;
+
+
+cqlsh:assignment> create table driver(driver_name text primary key,password ascii,mobile bigint,current_position text,skill set<text>);
+cqlsh:assignment> begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('John','pm23',9977661237,'FA4567',{'express train,passenger train'}); apply batch;
+cqlsh:assignment> begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('Mary','mm11',9380417069,'Wellington',{'Passenger train'}); apply batch;
+cqlsh:assignment> select * from driver;
+
+ driver_name | current_position | mobile     | password | skill
+-------------+------------------+------------+----------+-----------------------------------
+       John |           FA4567 | 9977661237 |  pm23  | {'express train,passenger train'}
+        Mary |       Wellington | 9380417069 |   mm11 |               {'Passenger train'}
+
+(2 rows)
+cqlsh> use assignment;
+cqlsh:assignment> create table vehicles(vehicle_id ascii primary key,status ascii,type ascii);
+
+cqlsh:assignment> begin batch
+              ... insert into vehicles(vehicle_id,status,type) values('KA23456','Maintenance','Gulliver');
+              ... insert into vehicles(vehicle_id,status,type) values('KA23786','Upper Hutt','Ganz Mavag');
+              ... insert into vehicles(vehicle_id,status,type) values('KA35786','out_of_order','Kiwi Rail');
+              ... apply batch;
+cqlsh:assignment> select * from vehicles;
+
+ vehicle_id | status       | type
+------------+--------------+------------
+    KA35786 | out_of_order |  Kiwi Rail
+    KA23786 |   Upper Hutt | Ganz Mavag
+    KA23456 |  Maintenance |   Gulliver
+
+(3 rows)
+cqlsh:assignment> create table time_table(line_name ascii primary key,service_name bigint,station_name ascii,latitude double,longitude double,time int,distance double);
+
+cqlsh:assignment> begin batch insert into time_table(line_name,service_name,station_name,latitude,longitude,time,distance) values('LINE1',3245,'marathalli',57.30,60.40,1530,335); apply batch;
+cqlsh:assignment> begin batch insert into time_table(line_name,service_name,station_name,latitude,longitude,time,distance) values('LINE2',3246,'Ecity',59.50,61.50,1650,376); apply batch;
+cqlsh:assignment> begin batch insert into time_table(line_name,service_name,station_name,latitude,longitude,time,distance) values('LINE3',3247,'hebbagodi',60.50,65.50,1750,389); apply batch;
+cqlsh:assignment> select * from time_table
+              ...
+cqlsh:assignment> select * from time_table;
+
+ line_name | distance | latitude | longitude | service_name | station_name | time
+-----------+----------+----------+-----------+--------------+--------------+------
+     LINE3 |      389 |     60.5 |      65.5 |         3247 |    hebbagodi | 1750
+     LINE2 |      376 |     59.5 |      61.5 |         3246 |        Ecity | 1650
+     LINE1 |      335 |     57.3 |      60.4 |         3245 |   marathalli | 1530
+
+cqlsh:assignment> create table vehicle_usage(vehicle_id text,total_distance counter,primary key(vehicle_id));
+cqlsh:assignment> update vehicle_usage set total_distance=total_distance+1 where vehicle_id='KA35786';
+cqlsh:assignment> update vehicle_usage set total_distance=total_distance+1 where vehicle_id='KA23786';
+cqlsh:assignment> update vehicle_usage set total_distance=total_distance+1 where vehicle_id='KA23456';
+cqlsh:assignment> select * from VEHICLE_USAGE;
+
+ vehicle_id | total_distance
+------------+----------------
+    KA35786 |              1
+    KA23786 |              1
+    KA23456 |              1
+
+(3 rows)
+
+cqlsh:assignment> CREATE table data_point(day int,sequence timestamp primary key,latitude double,longitude double,speed double);
+
+
+cqlsh:assignment> begin batch insert into data_point(day,sequence,latitude,longitude,speed) values(14,'2020-03-10',59.50,61.50,76); apply batch;
+cqlsh:assignment> begin batch insert into data_point(day,sequence,latitude,longitude,speed) values(2,'2020-04-12',65.60,68.50,56); apply batch;
+cqlsh:assignment> begin batch insert into data_point(day,sequence,latitude,longitude,speed) values(1,'2020-06-15',66.60,78.50,98); apply batch;
+cqlsh:assignment> select * from data_point;
+
+ day | latitude | longitude | sequence                        | speed
+-----+----------+-----------+---------------------------------+-------
+   1 |     66.6 |      78.5 | 2020-06-14 18:30:00.000000+0000 |    98
+   2 |     65.6 |      68.5 | 2020-04-11 18:30:00.000000+0000 |    56
+  14 |     59.5 |      61.5 | 2020-03-09 18:30:00.000000+0000 |    76
+
+(3 rows)
+
+1)    cqlsh:assignment> begin batch insert into driver(driver_name,password,mobile,current_position,skill) values('Charlie','ff78',9606891747,'FA4554',{'goods train,passenger train'}); apply batch;
+cqlsh:assignment> select * from driver;
+
+ driver_name | current_position | mobile      | password | skill
+-------------+------------------+-------------+----------+-----------------------------------
+     Charlie |           FA4554 | 9606891747 |  ff78 |    {'goods train,passenger train'}
+        John |           FA4567 | 9977661237 |  pm23  | {'express train,passenger train'}
+        Mary |       Wellington | 9380417069 |   mm11 |               {'Passenger train'}
+
+
+
+(3 rows)
+
+2)
+cqlsh:assignment> create index on driver(password);
+cqlsh:assignment> select * from driver;
+
+ driver_name | current_position | mobile      | password | skill
+-------------+------------------+-------------+----------+-----------------------------------
+     Charlie |           FA4554 | 9606891747 |  ff78 |    {'goods train,passenger train'}
+        John |           FA4567 | 9977661237 |  pm23  | {'express train,passenger train'}
+        Mary |       Wellington | 9380417069 |   mm11 |               {'Passenger train'}
+
+(3 rows)
+cqlsh:assignment> update driver set password='kl67' where driver_name='John';
+cqlsh:assignment> select * from driver;
+
+
+ driver_name | current_position | mobile      | password | skill
+-------------+------------------+-------------+----------+-----------------------------------
+     Charlie |           FA4554 | 9606891747 |  ff78 |    {'goods train,passenger train'}
+        John |           FA4567 | 9977661237 |  kl67  | {'express train,passenger train'}
+        Mary |       Wellington | 9380417069 |   mm11 |               {'Passenger train'}
+
+(3 rows)
+
+3)  cqlsh:assignment> update driver set current_position='New York' where driver_name='John';
+cqlsh:assignment> select * from driver;
+
+ driver_name | current_position | mobile      | password | skill
+-------------+------------------+-------------+----------+-----------------------------------
+     Charlie |           FA4554 | 9606891747 |  ff78 |    {'goods train,passenger train'}
+        John |         New York | 9977661237 |  kl67  | {'express train,passenger train'}
+        Mary |       Wellington | 9380417069 |   mm11 |               {'Passenger train'}
+(3 rows)
+
+4)
+cqlsh:assignment> update driver set skill={'goods train'} where driver_name='John';
+cqlsh:assignment> select * from driver;
+
+  driver_name | current_position | mobile      | password | skill
+-------------+------------------+-------------+----------+-----------------------------------
+     Charlie |           FA4554 | 9606891747 |  ff78 |    {'goods train,passenger train'}
+        John |         New York | 9977661237 |  kl67  |                   {'goods train'}
+        Mary |       Wellington | 9380417069 |   mm11 |               {'Passenger train'}
+(3 rows)
+5)
+cqlsh:assignment> update data_point set day=5 where sequence='2020-03-10';
+cqlsh:assignment> select * from data_point;
+
+ sequence                        | day | latitude | longitude | speed
+---------------------------------+-----+----------+-----------+-------
+ 2020-04-11 18:30:00.000000+0000 |   2 |     65.6 |      68.5 |    56
+ 2020-03-09 18:30:00.000000+0000 |   5 |     59.5 |      61.5 |    76
+ 2020-06-14 18:30:00.000000+0000 |   1 |     66.6 |      78.5 |    98
+
+(3 rows)
+
+
+6)
+cqlsh:assignment> begin batch
+              ... insert into vehicles(vehicle_id,status,type) values('KA6575','cleaning','benz');
+              ... apply batch;
+cqlsh:assignment> select * from vehicles;
+
+ vehicle_id | status       | type
+------------+--------------+------------
+    KA35786 | out_of_order |  Kiwi Rail
+     KA6575 |     cleaning |       benz
+    KA23786 |   Upper Hutt | Ganz Mavag
+    KA23456 |  Maintenance |   Gulliver
+
+(4 rows)
+
+7)cqlsh:assignment> update vehicles set status='high_problems' where vehicle_id='kA6575';
+cqlsh:assignment> select * from vehicles;
+
+ vehicle_id | status        | type
+------------+---------------+------------
+    KA35786 |  out_of_order |  Kiwi Rail
+     KA6575 |      cleaning |       benz
+     kA6575 | high_problems |       null
+    KA23786 |    Upper Hutt | Ganz Mavag
+    KA23456 |   Maintenance |   Gulliver
+
+(5 rows)
+cqlsh:assignment> update vehicles set status='high_problems' where vehicle_id='KA6575';
+cqlsh:assignment> select * from vehicles;
+
+ vehicle_id | status        | type
+------------+---------------+------------
+    KA35786 |  out_of_order |  Kiwi Rail
+     KA6575 | high_problems |       benz
+     kA6575 | high_problems |       null
+    KA23786 |    Upper Hutt | Ganz Mavag
+    KA23456 |   Maintenance |   Gulliver
+
+(5 rows)
+
+9)
+cqlsh:assignment> UPDATE VEHICLE_USAGE SET TOTAL_DISTANCE=TOTAL_DISTANCE+1 WHERE VEHICLE_ID='KA35786';
+cqlsh:assignment> SELECT * FROM VEHICLE_USAGE;
+
+ vehicle_id | total_distance
+------------+----------------
+    KA35786 |              2
+    KA23786 |              1
+    KA23456 |              1
+
+(3 rows)
+
+10)
+cqlsh:assignment>  begin batch insert into time_table(line_name,service_name,station_name,latitude,longitude,time,distance) values('5000',3245,'KRMARKET',58.50,68.60,1540,339); apply batch;
+cqlsh:assignment> SELECT * FROM TIME_TABLE;;
+
+ line_name | distance | latitude | longitude | service_name | station_name | time
+-----------+----------+----------+-----------+--------------+--------------+------
+     LINE2 |      376 |     59.5 |      61.5 |         3246 |        Ecity | 1650
+      5000 |      339 |     58.5 |      68.6 |         3245 |     KRMARKET | 1540
+      4000 |      389 |     60.5 |      65.5 |         3247 |    hebbagodi | 1750
+     LINE1 |      335 |     57.3 |      60.4 |         3245 |   marathalli | 1530
+
+(4 rows)
+
+12)
+cqlsh:assignment> begin batch insert into data_point(day,sequence,latitude,longitude,speed) values(15,'2020-03-04',78.50,66.50,67); apply batch;
+cqlsh:assignment> SELECT * FROM DATA_POINT;
+
+ sequence                        | day | latitude | longitude | speed
+---------------------------------+-----+----------+-----------+-------
+ 2020-03-03 18:30:00.000000+0000 |  15 |     78.5 |      66.5 |    67
+ 2020-04-11 18:30:00.000000+0000 |   2 |     65.6 |      68.5 |    56
+ 2020-03-09 18:30:00.000000+0000 |   5 |     59.5 |      61.5 |    76
+ 2020-06-14 18:30:00.000000+0000 |   1 |     66.6 |      78.5 |    98
+
+(4 rows)
