@@ -15,3 +15,5 @@
 ## Sem 6
 
 1. [Machine Learning (ML)](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/6th-Sem/Machine_Learning_Lab_079)
+2. [Big Data Analytics (BDA)](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/6th-Sem/Big-Data-Analytics-Lab-079)
+3. [OOMD](https://github.com/rajathkotyal/BMSCE-LAB-1BM18CS079/tree/master/6th-Sem/Object-Oriented-Model-Design-Lab)
